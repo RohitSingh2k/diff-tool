@@ -1,0 +1,39 @@
+#!java --source 11
+
+import java.io.*;
+import java.util.*;
+
+/**
+ * @author Rohit Singh
+ * 
+ * This is simple script written in java 
+ * which finds the difference between two files and put it into a new file.
+ * 
+ * */
+public class Count {
+	public static void main(String[] args) throws Exception {
+		// Taking first argument as first file name.
+		BufferedReader bf = new BufferedReader(new FileReader(args[0]));
+
+		Map<String, Integer> map = new HashMap<>();
+
+		String val = bf.readLine().toString();
+		
+		while((val = bf.readLine()) != null) {
+			if(map.containsKey(val)) map.put(val, map.get(val) + 1);
+			else map.put(val, 1);
+		}
+
+		bf.close();
+
+		// Considering second and third arguments as other file name and output file name
+		BufferedReader br = new BufferedReader(new FileReader(args[1]));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(args[2],true));
+
+		while((val = br.readLine()) != null) 
+			if(!map.containsKey(val)) bw.write(val + "\n");
+
+		br.close();
+		bw.close();
+	}
+}
